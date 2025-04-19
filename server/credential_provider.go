@@ -44,11 +44,12 @@ func (m *InMemoryProvider) AddUser(username, password string) {
 	m.userPool.Store(username, password)
 }
 
+// 清空用户数据
 func (m *InMemoryProvider) DeleteUser(username string) {
 	m.userPool.Delete(username)
 }
 
-// 清空所有用户数据（线程安全）
+// 清空所有用户数据
 func (m *InMemoryProvider) ClearAllUsers() {
 	m.userPool.Range(func(key, _ interface{}) bool {
 		m.userPool.Delete(key)
